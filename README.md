@@ -146,7 +146,6 @@ Javascript Component with JQuery
     },
     watch: {
       date: function() {
-        $('#counter').text(this.data.counter);
         this.components.dateDisplay.$update({
           date: this.data.date
         })
