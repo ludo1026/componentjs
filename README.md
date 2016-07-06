@@ -332,6 +332,7 @@ JSFiddle : https://jsfiddle.net/ludo1026/1qxr8gvf/
   MainComponent('#view').$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/ludo1026/fbcx846w/
 
 # Post - with a component for each post
 
