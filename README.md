@@ -9,6 +9,11 @@ Javascript Component with JQuery
 - **$watch** : Add watchers on components data updates
 - **$events** : Add listeners on display elements by JQuery
 
+# Component properties
+
+- **data** : Component data
+- **components** : Sub components of the component
+
 # Hello World
 
 ```html
