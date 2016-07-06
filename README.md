@@ -186,14 +186,13 @@ JSFiddle : https://jsfiddle.net/ludo1026/36psqsgm/
       counter: 0
     },
     display: function() {
-      $('#view').html([
-        '<h1>Counter</h1>',
-        '<p id="counter" />'
-      ]);
+      document.getElementById('view').innerHTML = 
+        '<h1>Counter</h1>' +
+        '<p id="counter" />';
     },
     watch: {
       counter: function() {
-        $('#counter').text(this.data.counter);
+        document.getElementById('counter').innerText = this.data.counter;
       }
     },
     init: function() {
@@ -205,6 +204,7 @@ JSFiddle : https://jsfiddle.net/ludo1026/36psqsgm/
   .$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/ludo1026/8jj2tqzd/
 
 # Date formater
 
