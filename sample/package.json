@@ -1,0 +1,11 @@
+{
+  "name": "componentjs-samples",
+  "version": "0.0.1",
+  "description": "component.js samples",
+  "scripts": {
+    "run": "live-reload"
+  },
+  "dependencies": {
+    "live-server": "*"
+  }
+}
