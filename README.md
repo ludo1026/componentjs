@@ -339,59 +339,26 @@ JSFiddle : https://jsfiddle.net/ludo1026/fbcx846w/
 ```html
 <div id="view"></div>
 <script>
-  function PostDisplayComponent(htmlId) {
-    return new Component({
-      display: function() {
-        if(this.data.post == null) {
-          return;
-        }
-
-        $(htmlId).html(
-          '<div class="post">'+
-          '<div class="title">'+this.data.post.title+'</div>'+
-          '<div class="body">'+this.data.post.body+'</div>'+
-          '</div>'
-        );
-      },
-      watch: {
-        post: function() {
-          this.$display();
-        }
-      }
-    })
-  }
   function PostsDisplayComponent(htmlId) {
     return new Component({
       display: function() {
-        if(!this.data.posts) {
-          return;
-        }
-        var html = '';
-        for(var i=0; i<this.data.posts.length; i++) {
-          var post = this.data.posts[i];
-          html += '<div id="post_' + post.id + '"></div>';
+        if(this.data.posts == null) {
+          var html = 'no post'
+        } else {
+          var html = '';
+          for(var i=0; i<this.data.posts.length; i++) {
+            var post = this.data.posts[i];
+            html += '<div class="post">' +
+                    '<div class="title">'+post.title+'</div>' +
+                    '<div class="body">'+post.body+'</div>' +
+                    '</div>';
+          }
         }
         $(htmlId).html(html);
       },
       watch: {
         posts: function() {
           this.$display();
-          this.definePostDisplays();
-        }
-      },
-      definePostDisplays: function() {
-        if(!this.data.posts) {
-          return;
-        }
-        for(var i=0; i<this.data.posts.length; i++) {
-          var post = this.data.posts[i];
-          var component = this.components[post.id];
-          if(component == null) {
-            component = this.components[post.id] = PostDisplayComponent('#post_'+post.id);
-          }
-          component.$update({
-            post: post
-          })
         }
       }
     })
@@ -406,7 +373,7 @@ JSFiddle : https://jsfiddle.net/ludo1026/fbcx846w/
         postsDisplay: PostsDisplayComponent('#posts')
       },
       init: function() {
-        $.get('http://jsonplaceholder.typicode.com/posts', function(posts) {
+        $.get('https://jsonplaceholder.typicode.com/posts', function(posts) {
           this.data.posts = posts;
         }.bind(this));
       },
@@ -429,3 +396,4 @@ JSFiddle : https://jsfiddle.net/ludo1026/fbcx846w/
   MainComponent('#view').$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/ludo1026/fbvh1ng8/
