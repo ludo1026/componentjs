@@ -70,3 +70,32 @@ Javascript Component with JQuery
   })
 </script>
 ```
+
+# Counter
+
+```html
+<div id="view"></div>
+<script>
+  new Component({
+    data: {
+      counter: 0
+    },
+    display: function() {
+      $('#view').html([
+        '<h1>Counter</h1>',
+        '<p id="counter" />'
+      ]);
+    },
+    watch: {
+      counter: function() {
+        $('#counter').text(this.data.counter);
+      }
+    },
+    init: function() {
+      setInterval(function(){
+        this.data.counter += 1;
+      }.bind(this), 100);
+    }
+  })
+</script>
+```
