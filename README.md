@@ -11,7 +11,7 @@ Javascript Component with JQuery
 
 # Hello World
 
-```
+```html
 <div id="view"></div>
 <script>
   new Component({
@@ -20,4 +20,4 @@ Javascript Component with JQuery
     }
   })
 </script>
-```html
+```
