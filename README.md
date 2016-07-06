@@ -11,23 +11,23 @@ Javascript Component with JQuery
 
 # Component methods/properties to redefine
 
-- **data** : Component data
 ```js
 new Component({
+```
+
+- **data** : Component data
+```js
   data: {
     var1: 'value1',
     var2: 'value2'
   }
-})
 ```
 - **components** : Sub components of the component
 ```js
-new Component({
   components: {
     component1: new Component({}),
     component2: new Component({})
   }
-})
 ```
 - **create** : method - Component creation - called by **$create** component method
 - **init** : method - Data initialization (for REST calls, etc.) - called by **$init** component method
@@ -35,6 +35,10 @@ new Component({
 - **watch** : object - 'data name': 'data value' - used by **$watch** component method
 - **events** : object - listeners on display elements - used by **$events** component method
 
+
+```js
+})
+```
 # Component object properties
 
 - **data** : Component data
