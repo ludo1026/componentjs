@@ -1,5 +1,5 @@
 # component.js
-Javascript Component with JQuery
+Javascript Component
 
 # Component common methods
 
