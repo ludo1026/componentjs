@@ -1,13 +1,21 @@
 # component.js
 Javascript Component with JQuery
 
-# Component methods
+# Component lifecycle methods
 
 - **$create** : Component creation
 - **$init** : Data initialization (for REST calls, etc.)
 - **$display** : Display - insert HTML content by DOM manipulation or with Jquery
 - **$watch** : Add watchers on components data updates
 - **$events** : Add listeners on display elements by JQuery
+
+# Component methods/properties to redefine
+
+- **create** : method - Component creation
+- **init** : method - Data initialization (for REST calls, etc.)
+- **display** : method - Component display
+- **watch** : object - 'data name': 'data value'
+- **events** : object - listeners on display elements
 
 # Component object properties
 
