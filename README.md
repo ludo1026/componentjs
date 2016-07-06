@@ -16,7 +16,27 @@ Javascript Component with JQuery
 <script>
   new Component({
     display: function() {
-      $('#view').html('Hello World');
+      $('#view').html('<h1>Hello World</h1>');
+    }
+  })
+</script>
+```
+
+# Events listener
+
+```html
+<div id="view"></div>
+<script>
+  new Component({
+    display: function() {
+      $('#view').html('<h1>Hello World</h1>');
+    },
+    events: {
+      'h1': {
+        click: function() {
+          alert('click');
+        }
+      }
     }
   })
 </script>
