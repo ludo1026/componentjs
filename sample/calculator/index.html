@@ -17,7 +17,7 @@
 
         // message d'erreur
         if(this.data.error) {
-          html += `<div style="color:red">${this.data.error}</div>`;
+          html += '<div style="color:red">'+this.data.error+'</div>';
         }
 
         // historique
@@ -68,7 +68,7 @@
       name: 'calcKeyboard',
       init: function() {
         for(var i=0; i<10; i++) {
-          this.events[`#keyboard_${i}`] = {
+          this.events['#keyboard_'+i] = {
             click: (function(num) {
               return function() {
                 parent.methods.addSymbol(num);
@@ -78,34 +78,34 @@
         }
       },
       display: function() {
-        html = `
-          <table>
-           <tr>
-            <td><button id="keyboard_7">7</button></td>
-            <td><button id="keyboard_8">8</button></td>
-            <td><button id="keyboard_9">9</button></td>
-            <td><button id="keyboard_div">&divide;</button></td>
-           </tr>
-           <tr>
-            <td><button id="keyboard_4">4</button></td>
-            <td><button id="keyboard_5">5</button></td>
-            <td><button id="keyboard_6">6</button></td>
-            <td><button id="keyboard_mul">x</button></td>
-           </tr>
-           <tr>
-            <td><button id="keyboard_1">1</button></td>
-            <td><button id="keyboard_2">2</button></td>
-            <td><button id="keyboard_3">3</button></td>
-            <td><button id="keyboard_minus">-</button></td>
-           </tr>
-           <tr>
-            <td><button id="keyboard_0">0</button></td>
-            <td><button id="keyboard_dot">.</button></td>
-            <td><button id="keyboard_calculate">=</button></td>
-            <td><button id="keyboard_plus">+</button></td>
-           </tr>
-          </table>
-          <button id="reset">Reset</button>`;
+        html =
+          '<table>'+
+           '<tr>'+
+            '<td><button id="keyboard_7">7</button></td>'+
+            '<td><button id="keyboard_8">8</button></td>'+
+            '<td><button id="keyboard_9">9</button></td>'+
+            '<td><button id="keyboard_div">&divide;</button></td>'+
+           '</tr>'+
+           '<tr>'+
+            '<td><button id="keyboard_4">4</button></td>'+
+            '<td><button id="keyboard_5">5</button></td>'+
+            '<td><button id="keyboard_6">6</button></td>'+
+            '<td><button id="keyboard_mul">x</button></td>'+
+           '</tr>'+
+           '<tr>'+
+            '<td><button id="keyboard_1">1</button></td>'+
+            '<td><button id="keyboard_2">2</button></td>'+
+            '<td><button id="keyboard_3">3</button></td>'+
+            '<td><button id="keyboard_minus">-</button></td>'+
+           '</tr>'+
+           '<tr>'+
+            '<td><button id="keyboard_0">0</button></td>'+
+            '<td><button id="keyboard_dot">.</button></td>'+
+            '<td><button id="keyboard_calculate">=</button></td>'+
+            '<td><button id="keyboard_plus">+</button></td>'+
+           '</tr>'+
+          '</table>'+
+          '<button id="reset">Reset</button>';
         document.getElementById('keyboard').innerHTML = html;
       },
       events: {
@@ -166,9 +166,9 @@
     },
     display: function() {
       var html =
-        `<input type="text" name="expr" value="${this.data.expr}" style="text-align: right;"/>`+
+        '<input type="text" name="expr" value="'+this.data.expr+'" style="text-align: right;"/>'+
         '<div id="keyboard"></div>'+
-        `<div id="display"></div>`;
+        '<div id="display"></div>';
       document.getElementById('view').innerHTML = html;
     },
     watch: {
