@@ -1,5 +1,5 @@
 # component.js
-Javascript Component
+Javascript Component - no need JQuery
 
 Compatibility : IE 9+, Chrome, Firefox
 
