@@ -165,11 +165,10 @@
       });
     },
     display: function() {
-      var html = [
-        `<input type="text" name="expr" value="${this.data.expr}" style="text-align: right;"/>`,
-        '<div id="keyboard"></div>',
-        `<div id="display"></div>`
-      ];
+      var html =
+        `<input type="text" name="expr" value="${this.data.expr}" style="text-align: right;"/>`+
+        '<div id="keyboard"></div>'+
+        `<div id="display"></div>`;
       document.getElementById('view').innerHTML = html;
     },
     watch: {
