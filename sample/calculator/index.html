@@ -1,0 +1,270 @@
+<html>
+<head>
+  <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+  <style type="text/css" media="screen">
+    #editor {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="view"></div>
+</body>
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/watch/watch.js"></script>
+<script src="lib/tuc.js"></script>
+
+<script>
+  function CalcDisplay() {
+    return new Component({
+      name: 'calcDisplay',
+      data: {
+        histo: []
+      },
+      display: function() {
+        var html = '';
+
+        // message d'erreur
+        if(this.data.error) {
+          html += `<div style="color:red">${this.data.error}</div>`;
+        }
+
+        // historique
+        html += '<pre>';
+        for(var i=0; i<this.data.histo.length; i++) {
+          html += this.data.histo[i] + '\n';
+        }
+        html += '</pre>';
+
+        $('#display').html(html);
+      },
+      watch: {
+        histo: function() {
+          this.$display();
+        },
+        error: function() {
+          this.$display();
+        }
+      },
+      refresh: function() {
+        this.$display();
+      },
+      methods: {
+        reset: function() {
+          this.data.histo = [];
+        },
+        calculate: function(expr) {
+          if(!expr || expr == '' || expr == '0') {
+            return;
+          }
+
+          try {
+            var result = eval(expr);
+            this.data.histo.push(expr + ' = ' + result);
+            this.data.error = null;
+            return result;
+          } catch(e) {
+            this.data.error = e;
+            return null;
+          }
+        }
+      }
+    });
+  }
+
+  var CalcKeyboard = function(parent) {
+    return new Component({
+      name: 'calcKeyboard',
+      init: function() {
+        for(var i=0; i<10; i++) {
+          this.events[`#keyboard_${i}`] = {
+            click: (function(num) {
+              return function() {
+                parent.methods.addSymbol(num);
+              }
+            })(i)
+          }
+        }
+      },
+      display: function() {
+        html = `
+          <table>
+           <tr>
+            <td><button id="keyboard_7">7</button></td>
+            <td><button id="keyboard_8">8</button></td>
+            <td><button id="keyboard_9">9</button></td>
+            <td><button id="keyboard_div">&divide;</button></td>
+           </tr>
+           <tr>
+            <td><button id="keyboard_4">4</button></td>
+            <td><button id="keyboard_5">5</button></td>
+            <td><button id="keyboard_6">6</button></td>
+            <td><button id="keyboard_mul">x</button></td>
+           </tr>
+           <tr>
+            <td><button id="keyboard_1">1</button></td>
+            <td><button id="keyboard_2">2</button></td>
+            <td><button id="keyboard_3">3</button></td>
+            <td><button id="keyboard_minus">-</button></td>
+           </tr>
+           <tr>
+            <td><button id="keyboard_0">0</button></td>
+            <td><button id="keyboard_dot">.</button></td>
+            <td><button id="keyboard_calculate">=</button></td>
+            <td><button id="keyboard_plus">+</button></td>
+           </tr>
+          </table>
+          <button id="reset">Reset</button>`;
+        $('#keyboard').html(html);
+      },
+      events: {
+        '#reset': {
+          click: function() {
+            parent.methods.reset();
+          }
+        },
+        '#keyboard_dot': {
+          click: function() {
+            parent.methods.addSymbol('.');
+          }
+        },
+        '#keyboard_plus': {
+          click: function() {
+            parent.methods.add();
+          }
+        },
+        '#keyboard_minus': {
+          click: function() {
+            parent.methods.minus();
+          }
+        },
+        '#keyboard_mul': {
+          click: function() {
+            parent.methods.mul();
+          }
+        },
+        '#keyboard_div': {
+          click: function() {
+            parent.methods.div();
+          }
+        },
+        '#keyboard_calculate': {
+          click: function() {
+            parent.methods.calculate();
+          }
+        }
+      }
+    });
+  };
+
+  var CalcView = new Component({
+    name: 'calcView',
+    data: {
+      isNew: true,
+      operator: null,
+      expr: ''
+    },
+    components: {
+      //display: CalcDisplay()
+    },
+    create: function() {
+      this.components.display = CalcDisplay();
+      this.components.keyboard = CalcKeyboard(this);
+    },
+    init: function() {
+      this.components.display.$update({
+        result: this.data.result
+      });
+    },
+    display: function() {
+      var html = [
+        `<input type="text" name="expr" value="${this.data.expr}" style="text-align: right;"/>`,
+        '<div id="keyboard"></div>',
+        `<div id="display"></div>`
+      ];
+      $('#view').html(html);
+    },
+    watch: {
+      expr: function() {
+        $('input[name="expr"]').val(this.data.expr);
+      }
+    },
+    events: {
+      'input[name="expr"]': {
+        keyup: function(event) {
+          this.data.expr = $('input[name="expr"]').val();
+          if ( event.which == 13 ) {
+            event.preventDefault();
+            this.methods.calculate(true);
+          }
+        }
+      }
+    },
+    methods: {
+      reset: function () {
+        this.data.isNew = true;
+        this.data.operator = null;
+        this.data.expr = '';
+        this.components.display.methods.reset();
+      },
+      addSymbol: function (symbol) {
+        if(symbol == '.') {
+          if(this.data.expr == null || this.data.expr == '' || this.data.expr == '0') {
+            this.data.expr = '0.';
+          } else {
+            this.data.expr += '.';
+          }
+        } else {
+          if (this.data.isNew || this.data.expr == null || this.data.expr == '' || this.data.expr == '0') {
+            if(symbol == '*' || symbol == '/' || symbol == '+' || symbol == '-') {
+              return;
+            } else {
+              this.data.expr = symbol;
+            }
+          } else {
+            this.data.expr += '' + symbol;
+          }
+        }
+        this.data.isNew = false;
+      },
+      add: function () {
+        this.methods.calculate();
+        this.data.operator = 'ADD';
+        this.data.isNew = false;
+        this.methods.addSymbol('+');
+      },
+      minus: function() {
+        this.methods.calculate();
+        this.data.operator = 'MINUS';
+        this.data.isNew = false;
+        this.methods.addSymbol('-');
+      },
+      mul: function() {
+        this.methods.calculate();
+        this.data.operator = 'MUL';
+        this.data.isNew = false;
+        this.methods.addSymbol('*');
+      },
+      div: function() {
+        this.methods.calculate();
+        this.data.operator = 'DIV';
+        this.data.isNew = false;
+        this.methods.addSymbol('/');
+      },
+      calculate: function (force) {
+        if(!force && this.data.operator == null) {
+          return;
+        }
+        var result = this.components.display.methods.calculate(this.data.expr);
+        if(result != null) {
+          this.data.expr = result;
+          this.data.operator = null;
+          this.data.isNew = true;
+        }
+      }
+    }
+  });
+</script>
+</html>
