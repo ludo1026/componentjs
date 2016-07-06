@@ -5,7 +5,7 @@ Javascript Component with JQuery
 
 - **$create** : Component creation
 - **$init** : Data initialization (for REST calls, etc.)
-- **$display** : Display
+- **$display** : Display - insert HTML content by DOM manipulation or with Jquery
 - **$watch** : Add watchers on components data updates
 - **$events** : Add listeners on display elements by JQuery
 
