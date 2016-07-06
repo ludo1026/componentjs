@@ -151,21 +151,20 @@ JSFiddle : https://jsfiddle.net/ludo1026/7mpgdrv4/
 <script>
   new Component({
     display: function() {
-      $('#view').html([
-        '<h1>Hello World</h1>',
-        '<label for="title">Change title :</label>',
-        '<input type="text" name="title" id="title" />'
-      ]);
+       document.getElementById('view').innerHTML = 
+        '<h1>Hello World</h1>' +
+        '<label for="title">Change title :</label>' +
+        '<input type="text" name="title" id="title" />';
     },
     watch: {
       title: function() {
-        $('h1').text(this.data.title);
+         document.querySelector('h1').innerText = this.data.title;
       }
     },
     events: {
       'input[name="title"]': {
         keyup: function() {
-          this.data.title = $('input[name="title"]').val();
+          this.data.title = document.querySelector('input[name="title"]').value;
         }
       }
     }
@@ -173,6 +172,7 @@ JSFiddle : https://jsfiddle.net/ludo1026/7mpgdrv4/
   .$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/ludo1026/36psqsgm/
 
 # Counter
 
