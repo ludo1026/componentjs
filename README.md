@@ -14,6 +14,10 @@ Javascript Component with JQuery
 ```
 <div id="view"></div>
 <script>
-
+  new Component({
+    display: function() {
+      $('#view').html('Hello World');
+    }
+  })
 </script>
 ```
