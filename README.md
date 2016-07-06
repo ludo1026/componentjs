@@ -130,35 +130,39 @@ Javascript Component with JQuery
     })
   }
 
-  new Component({
-    data: {
-      date: moment()
-    },
-    create: function() {
-      this.components.dateDisplay = DateDisplayComponent('#dateDisplay');
-    },
-    display: function() {
-      $('#view').html([
-        '<h1>Date</h1>',
-        '<input type="date" name="date" />',
-        '<div id="dateDisplay"></div>'
-      ]);
-    },
-    watch: {
-      date: function() {
-        this.components.dateDisplay.$update({
-          date: this.data.date
-        })
-      }
-    },
-    events: {
-      'input[type="date"]': {
-        change: function() {
-          var dateAsText = $('input[type="date"]').val();
-          this.data.date = moment(dateAsText);
+  function MainComponent(htmlId) {
+    return new Component({
+      data: {
+        date: moment()
+      },
+      create: function() {
+        this.components.dateDisplay = DateDisplayComponent('#dateDisplay');
+      },
+      display: function() {
+        $(htmlId).html([
+          '<h1>Date</h1>',
+          '<input type="date" name="date" />',
+          '<div id="dateDisplay"></div>'
+        ]);
+      },
+      watch: {
+        date: function() {
+          this.components.dateDisplay.$update({
+            date: this.data.date
+          })
+        }
+      },
+      events: {
+        'input[type="date"]': {
+          change: function() {
+            var dateAsText = $('input[type="date"]').val();
+            this.data.date = moment(dateAsText);
+          }
         }
       }
-    }
-  })
+    })
+  }
+  
+  MainComponent('#view');
 </script>
 ```
