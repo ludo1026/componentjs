@@ -120,7 +120,7 @@ new Component({
   .$init();
 </script>
 ```
-JSFiddle : https://jsfiddle.net/fpd36qsb/
+JSFiddle : https://jsfiddle.net/ludo1026/o817wrbk/
 
 # Events listener
 
@@ -129,7 +129,7 @@ JSFiddle : https://jsfiddle.net/fpd36qsb/
 <script>
   new Component({
     display: function() {
-      $('#view').html('<h1>Hello World</h1>');
+      document.getElementById('view').innerHTML = '<h1>Please click on "Hello World"</h1>';
     },
     events: {
       'h1': {
@@ -142,6 +142,7 @@ JSFiddle : https://jsfiddle.net/fpd36qsb/
   .$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/ludo1026/7mpgdrv4/
 
 # Watch
 
