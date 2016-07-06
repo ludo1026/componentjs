@@ -99,3 +99,67 @@ Javascript Component with JQuery
   })
 </script>
 ```
+
+# Date formater
+
+```html
+<div id="view"></div>
+<script>
+  function DateDisplayComponent(htmlId) {
+    return new Component({
+      data: {
+        date: null
+      },
+      display: function() {
+        if(this.data.date != null) {
+          var dateAsText = this.data.date.format('MMMM Do YYYY, h:mm:ss a');
+        } else {
+          var dateAsText = 'please define the date'
+        }
+        $(htmlId).html([
+          '<p>',
+          dateAsText,
+          '</p>'
+        ]);
+      },
+      watch: {
+        date: function() {
+          this.$display();
+        }
+      }
+    })
+  }
+
+  new Component({
+    data: {
+      date: moment()
+    },
+    create: function() {
+      this.components.dateDisplay = DateDisplayComponent('#dateDisplay');
+    },
+    display: function() {
+      $('#view').html([
+        '<h1>Date</h1>',
+        '<input type="date" name="date" />',
+        '<div id="dateDisplay"></div>'
+      ]);
+    },
+    watch: {
+      date: function() {
+        $('#counter').text(this.data.counter);
+        this.components.dateDisplay.$update({
+          date: this.data.date
+        })
+      }
+    },
+    events: {
+      'input[type="date"]': {
+        change: function() {
+          var dateAsText = $('input[type="date"]').val();
+          this.data.date = moment(dateAsText);
+        }
+      }
+    }
+  })
+</script>
+```
