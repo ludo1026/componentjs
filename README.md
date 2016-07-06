@@ -32,7 +32,7 @@ new Component({
 - **create** : method - Component creation - called by **$create** component method
 ```js
   create: function() {
-    // Create component element like sub components
+    // Create component elements like sub components
     this.components.component3 = new Component({});
   }
 ```
