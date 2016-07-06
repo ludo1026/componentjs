@@ -322,3 +322,99 @@ new Component({
   MainComponent('#view');
 </script>
 ```
+
+# Post - with a component for each post
+
+```html
+<div id="view"></div>
+<script>
+  function PostDisplayComponent(htmlId) {
+    return new Component({
+      display: function() {
+        if(this.data.post == null) {
+          return;
+        }
+
+        $(htmlId).html(
+          '<div class="post">'+
+          '<div class="title">'+this.data.post.title+'</div>'+
+          '<div class="body">'+this.data.post.body+'</div>'+
+          '</div>'
+        );
+      },
+      watch: {
+        post: function() {
+          this.$display();
+        }
+      }
+    })
+  }
+  function PostsDisplayComponent(htmlId) {
+    return new Component({
+      display: function() {
+        if(!this.data.posts) {
+          return;
+        }
+        var html = '';
+        for(var i=0; i<this.data.posts.length; i++) {
+          var post = this.data.posts[i];
+          html += '<div id="post_' + post.id + '"></div>';
+        }
+        $(htmlId).html(html);
+      },
+      watch: {
+        posts: function() {
+          this.$display();
+          this.definePostDisplays();
+        }
+      },
+      definePostDisplays: function() {
+        if(!this.data.posts) {
+          return;
+        }
+        for(var i=0; i<this.data.posts.length; i++) {
+          var post = this.data.posts[i];
+          var component = this.components[post.id];
+          if(component == null) {
+            component = this.components[post.id] = PostDisplayComponent('#post_'+post.id);
+          }
+          component.$update({
+            post: post
+          })
+        }
+      }
+    })
+  }
+
+  function MainComponent(htmlId) {
+    return new Component({
+      data: {
+        posts: []
+      },
+      components: {
+        postsDisplay: PostsDisplayComponent('#posts')
+      },
+      init: function() {
+        $.get('http://jsonplaceholder.typicode.com/posts', function(posts) {
+          this.data.posts = posts;
+        }.bind(this));
+      },
+      display: function() {
+        $(htmlId).html([
+          '<h1>Posts</h1>',
+          '<div id="posts"></div>'
+        ]);
+      },
+      watch: {
+        posts: function() {
+          this.components.postsDisplay.$update({
+            posts: this.data.posts
+          })
+        }
+      }
+    })
+  }
+
+  MainComponent('#view');
+</script>
+```
