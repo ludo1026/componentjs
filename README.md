@@ -88,26 +88,6 @@ new Component({
 ```js
 })
 ```
-# Component object properties
-
-- **data** : Component data
-```js
-new Component({
-  data: {
-    var1: 'value1',
-    var2: 'value2'
-  }
-})
-```
-- **components** : Sub components of the component
-```js
-new Component({
-  components: {
-    component1: new Component({}),
-    component2: new Component({})
-  }
-})
-```
 
 # Hello World
 
