@@ -120,6 +120,7 @@ new Component({
   .$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/fpd36qsb/
 
 # Events listener
 
