@@ -222,11 +222,8 @@ JSFiddle : https://jsfiddle.net/ludo1026/8jj2tqzd/
         } else {
           var dateAsText = 'please define the date'
         }
-        $(htmlId).html([
-          '<p>',
-          dateAsText,
-          '</p>'
-        ]);
+        document.getElementById(htmlId).innerHTML =
+          '<p>' + dateAsText + '</p>';
       },
       watch: {
         date: function() {
@@ -242,14 +239,13 @@ JSFiddle : https://jsfiddle.net/ludo1026/8jj2tqzd/
         date: moment()
       },
       create: function() {
-        this.components.dateDisplay = DateDisplayComponent('#dateDisplay');
+        this.components.dateDisplay = DateDisplayComponent('dateDisplay');
       },
       display: function() {
-        $(htmlId).html([
-          '<h1>Date</h1>',
-          '<input type="date" name="date" />',
-          '<div id="dateDisplay"></div>'
-        ]);
+        document.getElementById(htmlId).innerHTML =
+          '<h1>Date</h1>' +
+          '<input type="date" name="date" />' +
+          '<div id="dateDisplay"></div>';
       },
       watch: {
         date: function() {
@@ -261,17 +257,18 @@ JSFiddle : https://jsfiddle.net/ludo1026/8jj2tqzd/
       events: {
         'input[type="date"]': {
           change: function() {
-            var dateAsText = $('input[type="date"]').val();
+            var dateAsText = document.querySelector('input[type="date"]').value;
             this.data.date = moment(dateAsText);
           }
         }
       }
     })
   }
-  
-  MainComponent('#view').$init();
+
+  MainComponent('view').$init();
 </script>
 ```
+JSFiddle : https://jsfiddle.net/ludo1026/1qxr8gvf/
 
 # Posts (REST call)
 
