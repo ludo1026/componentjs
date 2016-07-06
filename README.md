@@ -259,3 +259,66 @@ new Component({
   MainComponent('#view');
 </script>
 ```
+
+# Posts (REST call)
+
+```html
+<div id="view"></div>
+<script>
+  function PostsDisplayComponent(htmlId) {
+    return new Component({
+      display: function() {
+        if(this.data.posts == null) {
+          var html = 'no post'
+        } else {
+          var html = '';
+          for(var i=0; i<this.data.posts.length; i++) {
+            var post = this.data.posts[i];
+            html += '<div class="post">' +
+                    '<div class="title">'+post.title+'</div>' +
+                    '<div class="body">'+post.body+'</div>' +
+                    '</div>';
+          }
+        }
+        $(htmlId).html(html);
+      },
+      watch: {
+        posts: function() {
+          this.$display();
+        }
+      }
+    })
+  }
+
+  function MainComponent(htmlId) {
+    return new Component({
+      data: {
+        posts: []
+      },
+      components: {
+        postsDisplay: PostsDisplayComponent('#posts')
+      },
+      init: function() {
+        $.get('http://jsonplaceholder.typicode.com/posts', function(posts) {
+          this.data.posts = posts;
+        }.bind(this));
+      },
+      display: function() {
+        $(htmlId).html([
+          '<h1>Posts</h1>',
+          '<div id="posts"></div>'
+        ]);
+      },
+      watch: {
+        posts: function() {
+          this.components.postsDisplay.$update({
+            posts: this.data.posts
+          })
+        }
+      }
+    })
+  }
+
+  MainComponent('#view');
+</script>
+```
