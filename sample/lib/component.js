@@ -28,7 +28,12 @@ var Component = function(obj) {
         for(var eventName in this.events[eltId]) {
           if(this.events[eltId][eventName] instanceof Function) {
             console.log('eltId = '+eltId+', eventName = '+eventName);
-            $(eltId).bind(eventName, this.events[eltId][eventName].bind(this));
+            var elt = document.querySelector(eltId);
+            if(elt) {
+              elt.addEventListener(eventName, this.events[eltId][eventName].bind(this), false);
+            } else {
+              console.log('events : unknown element -',eltId);
+            }
           }
         }
       }
