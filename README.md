@@ -1,6 +1,8 @@
 # component.js
 Javascript Component
 
+Compatibility : IE 9+, Chrome, Firefox
+
 # Component common methods
 
 - **$create** : Component creation
