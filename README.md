@@ -114,9 +114,10 @@ new Component({
 <script>
   new Component({
     display: function() {
-      $('#view').html('<h1>Hello World</h1>');
+      document.getElementById('view').innerHTML = '<h1>Hello World</h1>';
     }
   })
+  .$init();
 </script>
 ```
 
@@ -137,6 +138,7 @@ new Component({
       }
     }
   })
+  .$init();
 </script>
 ```
 
@@ -166,6 +168,7 @@ new Component({
       }
     }
   })
+  .$init();
 </script>
 ```
 
@@ -195,6 +198,7 @@ new Component({
       }.bind(this), 100);
     }
   })
+  .$init();
 </script>
 ```
 
@@ -261,7 +265,7 @@ new Component({
     })
   }
   
-  MainComponent('#view');
+  MainComponent('#view').$init();
 </script>
 ```
 
@@ -324,7 +328,7 @@ new Component({
     })
   }
 
-  MainComponent('#view');
+  MainComponent('#view').$init();
 </script>
 ```
 
@@ -420,6 +424,6 @@ new Component({
     })
   }
 
-  MainComponent('#view');
+  MainComponent('#view').$init();
 </script>
 ```
