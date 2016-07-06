@@ -2,7 +2,6 @@
 <body>
   <div id="view"></div>
 </body>
-<script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/watch/watch.js"></script>
 <script src="../lib/component.js"></script>
 
@@ -28,7 +27,7 @@
         }
         html += '</pre>';
 
-        $('#display').html(html);
+        document.getElementById('display').innerHTML = html;
       },
       watch: {
         histo: function() {
@@ -107,7 +106,7 @@
            </tr>
           </table>
           <button id="reset">Reset</button>`;
-        $('#keyboard').html(html);
+        document.getElementById('keyboard').innerHTML = html;
       },
       events: {
         '#reset': {
@@ -156,9 +155,6 @@
       operator: null,
       expr: ''
     },
-    components: {
-      //display: CalcDisplay()
-    },
     create: function() {
       this.components.display = CalcDisplay();
       this.components.keyboard = CalcKeyboard(this);
@@ -174,17 +170,17 @@
         '<div id="keyboard"></div>',
         `<div id="display"></div>`
       ];
-      $('#view').html(html);
+      document.getElementById('view').innerHTML = html;
     },
     watch: {
       expr: function() {
-        $('input[name="expr"]').val(this.data.expr);
+        document.querySelector('input[name="expr"]').value = this.data.expr;
       }
     },
     events: {
       'input[name="expr"]': {
         keyup: function(event) {
-          this.data.expr = $('input[name="expr"]').val();
+          this.data.expr = document.querySelector('input[name="expr"]').value;
           if ( event.which == 13 ) {
             event.preventDefault();
             this.methods.calculate(true);
@@ -256,5 +252,6 @@
       }
     }
   });
+  CalcView.$init();
 </script>
 </html>
