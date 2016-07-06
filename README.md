@@ -16,7 +16,7 @@ Sample - Calculator : https://jsfiddle.net/fpd36qsb/
 - **$watch** : Add watchers on components data updates
 - **$events** : Add listeners on display elements by JQuery
 
-To start a component : call **$init**
+To start a component, you must call **$init** on this component :
 - **$init** must be called on the parent component which initializes its existing children components
 - **$init** must be called on each new sub components added after the initialization of the parent component.
 
