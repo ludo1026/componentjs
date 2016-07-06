@@ -3,6 +3,8 @@ Javascript Component
 
 Compatibility : IE 9+, Chrome, Firefox
 
+Demo: https://jsfiddle.net/ludo1026/yrr22wms/
+
 # Component common methods
 
 - **$create** : Component creation
