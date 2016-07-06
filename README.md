@@ -20,4 +20,4 @@ Javascript Component with JQuery
     }
   })
 </script>
-```
+```html
