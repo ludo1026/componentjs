@@ -344,6 +344,7 @@ JSFiddle : https://jsfiddle.net/ludo1026/fbcx846w/
       }
     })
   }
+  
   function PostsDisplayComponent(htmlId) {
     return new Component({
       display: function() {
