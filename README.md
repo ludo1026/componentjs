@@ -1,7 +1,7 @@
 # component.js
 Javascript Component with JQuery
 
-# Component lifecycle methods
+# Component common methods
 
 - **$create** : Component creation
 - **$init** : Data initialization (for REST calls, etc.)
@@ -11,11 +11,29 @@ Javascript Component with JQuery
 
 # Component methods/properties to redefine
 
-- **create** : method - Component creation
-- **init** : method - Data initialization (for REST calls, etc.)
-- **display** : method - Component display
-- **watch** : object - 'data name': 'data value'
-- **events** : object - listeners on display elements
+- **data** : Component data
+```js
+new Component({
+  data: {
+    var1: 'value1',
+    var2: 'value2'
+  }
+})
+```
+- **components** : Sub components of the component
+```js
+new Component({
+  components: {
+    component1: new Component({}),
+    component2: new Component({})
+  }
+})
+```
+- **create** : method - Component creation - called by **$create** component method
+- **init** : method - Data initialization (for REST calls, etc.) - called by **$init** component method
+- **display** : method - Component display - called by **$display** component method
+- **watch** : object - 'data name': 'data value' - used by **$watch** component method
+- **events** : object - listeners on display elements - used by **$events** component method
 
 # Component object properties
 
