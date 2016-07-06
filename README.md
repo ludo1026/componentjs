@@ -30,11 +30,53 @@ new Component({
   }
 ```
 - **create** : method - Component creation - called by **$create** component method
+```js
+  create: function() {
+    // Create component element like sub components
+    this.components.component3 = new Component({});
+  }
+```
 - **init** : method - Data initialization (for REST calls, etc.) - called by **$init** component method
+```js
+  init: function() {
+    // Data initialisation
+    this.data.var1 = 'value1';
+    // Rest
+    $.get( "rest/", function( data ) {
+      this.data.var1 = data;
+    });
+  }
+```
 - **display** : method - Component display - called by **$display** component method
-- **watch** : object - 'data name': 'data value' - used by **$watch** component method
-- **events** : object - listeners on display elements - used by **$events** component method
+```js
+  display: function() {
+    // by jquery
+    $('#id').html('<p>Hello !</p>');
+    // by DOM
+    document.getElementById('id').innerHtml = '<p>Hello !</p>';
+  }
+```
+- **watch** : object - Actions for data properties updates - used by **$watch** component method
+```js
+  watch: {
+    var1: function() {
+      // Update of 'data.var1'
+      // Actions to do
+    },
+    var2: function() {
+      // Update of 'data.var2'
+      // Actions to do
+    }
+  }
+```
 
+- **events** : object - listeners on display elements - used by **$events** component method
+```js
+  events: {
+    'jquery selector' : { '<event>': function() {} },
+    'input[name="firstname"]': { 'keyup': function() { ... } }
+  }
+```
 
 ```js
 })
