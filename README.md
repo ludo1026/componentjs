@@ -3,6 +3,8 @@ Javascript Component
 
 Compatibility : IE 9+, Chrome, Firefox
 
+Library dependencies : watch.js - https://github.com/melanke/Watch.JS/
+*No need of JQuery*
 
 Sample - Calculator : https://jsfiddle.net/fpd36qsb/
 
