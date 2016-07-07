@@ -416,3 +416,113 @@ JSFiddle : https://jsfiddle.net/ludo1026/fbcx846w/
 </script>
 ```
 JSFiddle : https://jsfiddle.net/ludo1026/fbvh1ng8/
+
+# Todo list
+
+```html
+<div id="view"></div>
+<script>
+function NewPostComponent(htmlId, parent) {
+    return new Component({
+      display: function() {
+        $(htmlId).html(
+          '<input type="text" name="title" />' +
+          '<button id="add">Add</button>'
+        );
+      },
+      watch: {
+        title: function() {
+          $('input[name="title"]').val(this.data.title);
+        }
+      },
+      events: {
+        'input[name="title"]': {
+          keyup: function(e) {
+            this.data.title = $('input[name="title"]').val();
+            if(e.which == 13) {
+              this.addTodo();
+            }
+          }
+        },
+        '#add': {
+          click: function() {
+            this.addTodo()
+          }
+        }
+      },
+      addTodo: function() {
+        parent.data.todos.push({
+          title: this.data.title
+        })
+        this.data.title = '';
+      }
+    })
+  }
+  
+  function ListComponent(htmlId) {
+    return new Component({
+      display: function() {
+        var html = '';
+        if(this.data.todos) {
+          for(var i=0; i<this.data.todos.length; i++) {
+            var todo = this.data.todos[i];
+            html += '<div class="todo">' + todo.title + '</div>';
+          }
+        }
+        $(htmlId).html(html);
+      },
+      refresh: function() {
+        this.$display();
+      }
+    })
+  }
+
+  function MainComponent(htmlId) {
+    return new Component({
+      data: {
+        todos: [{
+          title: 'Todo 1'
+        },{
+          title: 'Todo 2'
+        }]
+      },
+      init: function() {
+        this.components.newPostDisplay = NewPostComponent('#new', this);
+        this.components.postsDisplay = ListComponent('#list');
+        this.components.postsDisplay.$update({
+          todos: this.data.todos
+        });
+        /*
+        var i = 3;
+        setInterval(function() {
+          this.data.todos.push({
+            title: 'Todo '+i
+          })
+          console.log(this.data.todos)
+          i++;
+        }.bind(this), 3000)
+        */
+      },
+      display: function() {
+        $(htmlId).html([
+          '<h1>Todo list</h1>',
+          '<div id="new"></div>',
+          '<div id="list"></div>'
+        ]);
+      },
+      watch: {
+        todos: function() {
+          console.log('update')
+          this.components.postsDisplay.$update({
+            todos: this.data.todos
+          })
+        }
+      }
+    })
+  }
+
+  MainComponent('#view').$init();
+</script>
+```
+
+JSFiddle: https://jsfiddle.net/ludo1026/unchver2/
