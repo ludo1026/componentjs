@@ -41,22 +41,24 @@ var Component = function(obj) {
   Component.prototype.$watch = function() {
     if(this.watch instanceof Object) {
       for(var key in this.watch) {
-        if(this.data[key] == undefined) {
-          this.data[key] = undefined;
+        if (this.watch[key] instanceof Function) {
+          if(this.data[key] == undefined) {
+            this.data[key] = undefined;
+          }
+          watch(this.data, key, function (prop, action, newvalue, oldvalue) {
+            this.watch[prop] = this.watch[prop].bind(this);
+            this.watch[prop]();
+          }.bind(this));
         }
       }
     }
-    watch(this.data, (function(prop, action, newvalue, oldvalue) {
-      if(this.refresh instanceof Function) {
-        this.refresh(prop, action, newvalue, oldvalue);
-      }
-      if(this.watch instanceof Object) {
-        if(this.watch[prop] instanceof Function) {
-          this.watch[prop] = this.watch[prop].bind(this);
-          this.watch[prop]();
+    if(this.refresh instanceof Function) {
+      watch(this.data, function (prop, action, newvalue, oldvalue) {
+        if (this.refresh instanceof Function) {
+          this.refresh(prop, action, newvalue, oldvalue);
         }
-      }
-    }).bind(this));
+      }.bind(this), 0, true);
+    }
   };
   /**
    * $update :
