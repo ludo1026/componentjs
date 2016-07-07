@@ -459,7 +459,7 @@ function NewPostComponent(htmlId, parent) {
     })
   }
   
-  function ListComponent(htmlId) {
+  function TodoListComponent(htmlId) {
     return new Component({
       display: function() {
         var html = '';
@@ -488,7 +488,7 @@ function NewPostComponent(htmlId, parent) {
       },
       init: function() {
         this.components.newPostDisplay = NewPostComponent('#new', this);
-        this.components.postsDisplay = ListComponent('#list');
+        this.components.postsDisplay = TodoListComponent('#list');
         this.components.postsDisplay.$update({
           todos: this.data.todos
         });
