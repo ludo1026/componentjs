@@ -6,7 +6,7 @@ Compatibility : IE 9+, Chrome, Firefox
 Library dependencies : 
 - watch.js - https://github.com/melanke/Watch.JS/
 
-Sample - Calculator : https://jsfiddle.net/fpd36qsb/
+Sample - Calculator : https://jsfiddle.net/ludo1026/qfpcr00L/
 
 # Component common methods
 
