@@ -492,16 +492,6 @@ function NewPostComponent(htmlId, parent) {
         this.components.postsDisplay.$update({
           todos: this.data.todos
         });
-        /*
-        var i = 3;
-        setInterval(function() {
-          this.data.todos.push({
-            title: 'Todo '+i
-          })
-          console.log(this.data.todos)
-          i++;
-        }.bind(this), 3000)
-        */
       },
       display: function() {
         $(htmlId).html([
